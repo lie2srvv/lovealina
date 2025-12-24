@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Для Алины</title>
+    <title>❤️</title>
     <style>
         body {
             margin: 0;
@@ -12,89 +12,112 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background-color: #fff5f7; /* Нежно-розовый фон */
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #333;
+            background-color: #fffafb;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            color: #222;
             overflow: hidden;
         }
 
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 5px;
+        .main-text {
+            font-size: 3.5rem;
+            margin: 0;
+            font-weight: bold;
         }
 
         .heart {
-            color: #ff4d6d;
+            color: #ff3366;
+            display: inline-block;
         }
 
         .signature {
-            font-size: 0.9rem;
-            opacity: 0.5;
-            margin-bottom: 50px;
+            font-size: 0.85rem;
+            opacity: 0.35; /* Более прозрачная */
+            margin-top: 5px;
+            margin-bottom: 60px;
+            letter-spacing: 1px;
         }
 
         /* Контейнер для слотов */
-        .slot-machine {
-            height: 60px; /* Высота одного слова */
+        .slot-container {
+            height: 70px;
             overflow: hidden;
-            border-top: 2px solid #ffccd5;
-            border-bottom: 2px solid #ffccd5;
-            padding: 10px 0;
+            position: relative;
         }
 
         .slot-track {
             display: flex;
             flex-direction: column;
             align-items: center;
-            animation: slot-spin 15s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+            /* Рассчитываем время: 20 комплиментов * 1.5 сек на каждый = 30 сек на цикл */
+            animation: slot-spin 30s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
         }
 
         .compliment {
-            height: 60px;
-            line-height: 60px;
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #ff4d6d;
-            text-align: center;
+            height: 70px;
+            line-height: 70px;
+            font-size: 2rem;
+            color: #ff3366;
+            font-weight: 500;
+            white-space: nowrap;
         }
 
-        /* Анимация прокрутки */
+        /* Анимация прокрутки: -70px за каждый шаг (всего 20 шагов) */
         @keyframes slot-spin {
             0% { transform: translateY(0); }
-            10% { transform: translateY(-60px); }
-            20% { transform: translateY(-120px); }
-            30% { transform: translateY(-180px); }
-            40% { transform: translateY(-240px); }
-            50% { transform: translateY(-300px); }
-            60% { transform: translateY(-360px); }
-            70% { transform: translateY(-420px); }
-            80% { transform: translateY(-480px); }
-            90% { transform: translateY(-540px); }
-            100% { transform: translateY(0); }
+            5% { transform: translateY(-70px); }
+            10% { transform: translateY(-140px); }
+            15% { transform: translateY(-210px); }
+            20% { transform: translateY(-280px); }
+            25% { transform: translateY(-350px); }
+            30% { transform: translateY(-420px); }
+            35% { transform: translateY(-490px); }
+            40% { transform: translateY(-560px); }
+            45% { transform: translateY(-630px); }
+            50% { transform: translateY(-700px); }
+            55% { transform: translateY(-770px); }
+            60% { transform: translateY(-840px); }
+            65% { transform: translateY(-910px); }
+            70% { transform: translateY(-980px); }
+            75% { transform: translateY(-1050px); }
+            80% { transform: translateY(-1120px); }
+            85% { transform: translateY(-1190px); }
+            90% { transform: translateY(-1260px); }
+            95% { transform: translateY(-1330px); }
+            100% { transform: translateY(-1400px); }
         }
     </style>
 </head>
 <body>
 
-    <h1>Я <span class="heart">❤️</span> Алину</h1>
+    <div class="main-text">Я <span class="heart">❤️</span> Алину</div>
     <div class="signature">@by @lie2srvv</div>
 
-    <div class="slot-machine">
+    <div class="slot-container">
         <div class="slot-track">
-            <div class="compliment">Самая красивая</div>
+            <div class="compliment">Наикрасивейшая</div>
             <div class="compliment">Великолепная</div>
-            <div class="compliment">Неповторимая</div>
             <div class="compliment">Очаровательная</div>
-            <div class="compliment">Умная</div>
-            <div class="compliment">Добрая</div>
+            <div class="compliment">Неповторимая</div>
+            <div class="compliment">Самая нежная</div>
+            <div class="compliment">Искренняя</div>
             <div class="compliment">Лучезарная</div>
-            <div class="compliment">Милая</div>
-            <div class="compliment">Единственная</div>
             <div class="compliment">Заботливая</div>
-            <div class="compliment">Самая красивая</div>
+            <div class="compliment">Удивительная</div>
+            <div class="compliment">Милая</div>
+            <div class="compliment">Стильная</div>
+            <div class="compliment">Добрая</div>
+            <div class="compliment">Восхитительная</div>
+            <div class="compliment">Умная</div>
+            <div class="compliment">Талантливая</div>
+            <div class="compliment">Невероятная</div>
+            <div class="compliment">Ласковая</div>
+            <div class="compliment">Притягательная</div>
+            <div class="compliment">Единственная</div>
+            <div class="compliment">Самая-самая</div>
+            <div class="compliment">Наикрасивейшая</div>
         </div>
     </div>
 
 </bod
-  y>
+    y>
 </html>
