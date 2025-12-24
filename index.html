@@ -62,26 +62,43 @@
         }
 
         .slot-window {
-            height: 80px;
+            height: 100px;
             overflow: hidden;
             position: relative;
-        }
-
-        .slot-track {
-            position: relative;
-            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
         }
 
         .compliment {
-            height: 80px;
-            line-height: 80px;
-            font-size: clamp(1.4rem, 6vw, 2.3rem);
+            position: absolute;
+            height: 100px;
+            line-height: 100px;
+            font-size: clamp(1.4rem, 6vw, 2.5rem);
             color: #ff3366;
             font-weight: 800;
             white-space: nowrap;
+            opacity: 0;
+            transform: translateY(100px);
+        }
+
+        .slot-animate-in {
+            animation: slotIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        .slot-animate-out {
+            animation: slotOut 0.5s cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards;
+        }
+
+        @keyframes slotIn {
+            0% { transform: translateY(100px); opacity: 0; }
+            70% { transform: translateY(-15px); opacity: 1; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes slotOut {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100px); opacity: 0; }
         }
     </style>
 </head>
@@ -93,9 +110,7 @@
         </div>
         <div class="signature">@by @lie2srvv</div>
 
-        <div class="slot-window">
-            <div class="slot-track" id="slotTrack"></div>
-        </div>
+        <div class="slot-window" id="slotWindow"></div>
     </div>
 
     <script>
@@ -112,35 +127,35 @@
             "Чарующая", "Шикарная", "Элегантная", "Яркая", "Совершенная", "Божественная"
         ];
 
-        const track = document.getElementById('slotTrack');
-        let history = []; 
-        let currentPosition = 0;
+        const slotWindow = document.getElementById('slotWindow');
+        let history = [];
 
-        function getNextCompliment() {
-            let randomIndex;
+        function getNext() {
+            let index;
             do {
-                randomIndex = Math.floor(Math.random() * compliments.length);
-            } while (history.includes(randomIndex));
-
-            history.push(randomIndex);
+                index = Math.floor(Math.random() * compliments.length);
+            } while (history.includes(index));
+            history.push(index);
             if (history.length > 10) history.shift();
-
-            return compliments[randomIndex];
+            return compliments[index];
         }
 
-        function spin() {
-            const nextText = getNextCompliment();
-            const nextDiv = document.createElement('div');
-            nextDiv.className = 'compliment';
-            nextDiv.textContent = nextText;
-            track.appendChild(nextDiv);
+        function spawn() {
+            const oldElement = slotWindow.querySelector('.compliment');
+            if (oldElement) {
+                oldElement.classList.remove('slot-animate-in');
+                oldElement.classList.add('slot-animate-out');
+                setTimeout(() => oldElement.remove(), 500);
+            }
 
-            currentPosition++;
-            track.style.transform = `translateY(-${currentPosition * 80}px)`;
+            const newElement = document.createElement('div');
+            newElement.className = 'compliment slot-animate-in';
+            newElement.textContent = getNext();
+            slotWindow.appendChild(newElement);
         }
 
-        track.innerHTML = `<div class="compliment">${getNextCompliment()}</div>`;
-        setInterval(spin, 2500);
+        spawn();
+        setInterval(spawn, 3000);
     </script>
 </body>
 </html>
