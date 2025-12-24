@@ -9,10 +9,8 @@
             margin: 0;
             height: 100vh;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            /* Твой фон */
             background-image: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fkartinki.pics%2Fuploads%2Fposts%2F2021-07%2F1627005720_31-kartinkin-com-p-milii-fon-s-serdechkami-krasivo-31.jpg&f=1&ipt=7c9641f85e97bb27381208e37d907c5c3ba634c6365e9f959721d728db4d81f1');
             background-size: cover;
             background-position: center;
@@ -20,31 +18,30 @@
             overflow: hidden;
         }
 
-        /* Белая подложка для читаемости (по желанию можно убрать) */
-        .content-wrapper {
-            background: rgba(255, 255, 255, 0.7);
-            padding: 40px;
-            border-radius: 30px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            backdrop-filter: blur(5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        .glass-card {
+            background: rgba(255, 255, 255, 0.75);
+            padding: 40px 60px;
+            border-radius: 40px;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 80%;
         }
 
         .main-text {
-            font-size: clamp(2rem, 8vw, 3.5rem);
-            margin: 0;
+            font-size: clamp(2.2rem, 8vw, 3.8rem);
             font-weight: bold;
-            color: #222;
+            color: #333;
             display: flex;
             align-items: center;
-            gap: 15px; /* Отступ между текстом и сердечком */
+            justify-content: center;
+            gap: 15px;
+            margin: 0;
         }
 
-        /* Твоё сердечко-картинка */
         .heart-img {
-            width: 60px; /* Размер сердечка */
+            width: clamp(50px, 10vw, 75px);
             height: auto;
             animation: pulse 1.5s infinite;
         }
@@ -56,112 +53,94 @@
         }
 
         .signature {
-            font-size: 0.85rem;
-            opacity: 0.4; /* Прозрачность подписи */
+            font-size: 0.9rem;
+            opacity: 0.4;
             margin-top: 5px;
             margin-bottom: 40px;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             color: #000;
         }
 
-        .slot-container {
+        .slot-window {
             height: 80px;
             overflow: hidden;
-            /* Плавное исчезновение сверху и снизу */
-            mask-image: linear-gradient(transparent, black 20%, black 80%, transparent);
-            -webkit-mask-image: linear-gradient(transparent, black 20%, black 80%, transparent);
+            position: relative;
         }
 
         .slot-track {
+            position: relative;
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
             display: flex;
             flex-direction: column;
             align-items: center;
-            /* 25 слов + 1 повтор = 26 элементов. 30 секунд на полный цикл */
-            animation: slot-spin 35s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
         }
 
         .compliment {
             height: 80px;
             line-height: 80px;
-            font-size: clamp(1.2rem, 5vw, 2.2rem);
+            font-size: clamp(1.4rem, 6vw, 2.3rem);
             color: #ff3366;
-            font-weight: 700;
+            font-weight: 800;
             white-space: nowrap;
-            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
-        }
-
-        /* Анимация (шаг = -80px) */
-        @keyframes slot-spin {
-            0% { transform: translateY(0); }
-            4% { transform: translateY(-80px); }
-            8% { transform: translateY(-160px); }
-            12% { transform: translateY(-240px); }
-            16% { transform: translateY(-320px); }
-            20% { transform: translateY(-400px); }
-            24% { transform: translateY(-480px); }
-            28% { transform: translateY(-560px); }
-            32% { transform: translateY(-640px); }
-            36% { transform: translateY(-720px); }
-            40% { transform: translateY(-800px); }
-            44% { transform: translateY(-880px); }
-            48% { transform: translateY(-960px); }
-            52% { transform: translateY(-1040px); }
-            56% { transform: translateY(-1120px); }
-            60% { transform: translateY(-1200px); }
-            64% { transform: translateY(-1280px); }
-            68% { transform: translateY(-1360px); }
-            72% { transform: translateY(-1440px); }
-            76% { transform: translateY(-1520px); }
-            80% { transform: translateY(-1600px); }
-            84% { transform: translateY(-1680px); }
-            88% { transform: translateY(-1760px); }
-            92% { transform: translateY(-1840px); }
-            96% { transform: translateY(-1920px); }
-            100% { transform: translateY(-2000px); }
         }
     </style>
 </head>
 <body>
 
-    <div class="content-wrapper">
+    <div class="glass-card">
         <div class="main-text">
-            Я 
-            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fpngimg.com%2Fuploads%2Fheart%2Fheart_PNG51253.png&f=1&ipt=3283c0fcb93e5df45daa8b15fb89248515346ab6217eb8e80f9a2ce4a0a3e291" class="heart-img" alt="❤️"> 
-            Алину
+            Я <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fpngimg.com%2Fuploads%2Fheart%2Fheart_PNG51253.png&f=1&ipt=3283c0fcb93e5df45daa8b15fb89248515346ab6217eb8e80f9a2ce4a0a3e291" class="heart-img" alt="❤️"> Алину
         </div>
         <div class="signature">@by @lie2srvv</div>
 
-        <div class="slot-container">
-            <div class="slot-track">
-                <div class="compliment">Наикрасивейшая</div>
-                <div class="compliment">Великолепная</div>
-                <div class="compliment">Очаровательная</div>
-                <div class="compliment">Неповторимая</div>
-                <div class="compliment">Самая нежная</div>
-                <div class="compliment">Искренняя</div>
-                <div class="compliment">Лучезарная</div>
-                <div class="compliment">Заботливая</div>
-                <div class="compliment">Удивительная</div>
-                <div class="compliment">Милая</div>
-                <div class="compliment">Стильная</div>
-                <div class="compliment">Добрая</div>
-                <div class="compliment">Восхитительная</div>
-                <div class="compliment">Умная</div>
-                <div class="compliment">Талантливая</div>
-                <div class="compliment">Невероятная</div>
-                <div class="compliment">Ласковая</div>
-                <div class="compliment">Притягательная</div>
-                <div class="compliment">Единственная</div>
-                <div class="compliment">Самая-самая</div>
-                <div class="compliment">Прекрасная</div>
-                <div class="compliment">Женственная</div>
-                <div class="compliment">Вдохновляющая</div>
-                <div class="compliment">Чуткая</div>
-                <div class="compliment">Лучшая</div>
-                <div class="compliment">Наикрасивейшая</div>
-            </div>
+        <div class="slot-window">
+            <div class="slot-track" id="slotTrack"></div>
         </div>
     </div>
 
+    <script>
+        const compliments = [
+            "Наикрасивейшая", "Великолепная", "Очаровательная", "Неповторимая", "Самая нежная",
+            "Искренняя", "Лучезарная", "Заботливая", "Удивительная", "Милая",
+            "Стильная", "Добрая", "Восхитительная", "Умная", "Талантливая",
+            "Невероятная", "Ласковая", "Притягательная", "Единственная", "Прекрасная",
+            "Женственная", "Вдохновляющая", "Чуткая", "Лучшая", "Ослепительная",
+            "Сказочная", "Ангельская", "Бесценная", "Дивная", "Жизнерадостная",
+            "Завораживающая", "Изящная", "Креативная", "Магическая",
+            "Ненаглядная", "Обожаемая", "Потрясающая", "Родная", "Светлая",
+            "Трогательная", "Улыбчивая", "Фантастическая", "Харизматичная", "Цветущая",
+            "Чарующая", "Шикарная", "Элегантная", "Яркая", "Совершенная", "Божественная"
+        ];
+
+        const track = document.getElementById('slotTrack');
+        let history = []; 
+        let currentPosition = 0;
+
+        function getNextCompliment() {
+            let randomIndex;
+            do {
+                randomIndex = Math.floor(Math.random() * compliments.length);
+            } while (history.includes(randomIndex));
+
+            history.push(randomIndex);
+            if (history.length > 10) history.shift();
+
+            return compliments[randomIndex];
+        }
+
+        function spin() {
+            const nextText = getNextCompliment();
+            const nextDiv = document.createElement('div');
+            nextDiv.className = 'compliment';
+            nextDiv.textContent = nextText;
+            track.appendChild(nextDiv);
+
+            currentPosition++;
+            track.style.transform = `translateY(-${currentPosition * 80}px)`;
+        }
+
+        track.innerHTML = `<div class="compliment">${getNextCompliment()}</div>`;
+        setInterval(spin, 2500);
+    </script>
 </body>
 </html>
