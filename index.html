@@ -20,28 +20,31 @@
 
         .glass-card {
             background: rgba(255, 255, 255, 0.75);
-            padding: 40px 60px;
+            padding: 30px;
             border-radius: 40px;
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             box-shadow: 0 15px 35px rgba(0,0,0,0.1);
             text-align: center;
-            max-width: 80%;
+            width: 350px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .main-text {
-            font-size: clamp(2.2rem, 8vw, 3.8rem);
+            font-size: 2rem;
             font-weight: bold;
             color: #333;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
+            gap: 10px;
             margin: 0;
         }
 
         .heart-img {
-            width: clamp(50px, 10vw, 75px);
+            width: 45px;
             height: auto;
             animation: pulse 1.5s infinite;
         }
@@ -53,52 +56,84 @@
         }
 
         .signature {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             opacity: 0.4;
             margin-top: 5px;
-            margin-bottom: 40px;
-            letter-spacing: 2px;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
             color: #000;
         }
 
         .slot-window {
-            height: 100px;
+            height: 80px;
+            width: 100%;
             overflow: hidden;
             position: relative;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border: 2px solid rgba(255, 51, 102, 0.2);
+        }
+
+        .slot-track {
+            position: absolute;
+            width: 100%;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
         }
 
         .compliment {
-            position: absolute;
-            height: 100px;
-            line-height: 100px;
-            font-size: clamp(1.4rem, 6vw, 2.5rem);
+            height: 80px;
+            line-height: 80px;
+            font-size: 1.6rem;
             color: #ff3366;
             font-weight: 800;
             white-space: nowrap;
-            opacity: 0;
-            transform: translateY(100px);
+            display: flex;
+            justify-content: center;
         }
 
-        .slot-animate-in {
-            animation: slotIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        .letter {
+            display: inline-block;
         }
 
-        .slot-animate-out {
-            animation: slotOut 0.5s cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards;
+        .btn-play {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            background: #ff3366;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(255, 51, 102, 0.4);
+            transition: transform 0.2s, background 0.2s;
         }
 
-        @keyframes slotIn {
-            0% { transform: translateY(100px); opacity: 0; }
-            70% { transform: translateY(-15px); opacity: 1; }
-            100% { transform: translateY(0); opacity: 1; }
+        .btn-play:hover {
+            transform: scale(1.1);
+            background: #e62e5c;
         }
 
-        @keyframes slotOut {
-            0% { transform: translateY(0); opacity: 1; }
-            100% { transform: translateY(-100px); opacity: 0; }
+        .icon-play {
+            width: 0;
+            height: 0;
+            border-top: 12px solid transparent;
+            border-bottom: 12px solid transparent;
+            border-left: 20px solid white;
+            margin-left: 5px;
+        }
+
+        .blur-fx {
+            filter: blur(2px);
+            opacity: 0.7;
+        }
+
+        @keyframes letter-dance {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
     </style>
 </head>
@@ -110,7 +145,13 @@
         </div>
         <div class="signature">@by @lie2srvv</div>
 
-        <div class="slot-window" id="slotWindow"></div>
+        <div class="slot-window">
+            <div class="slot-track" id="slotTrack"></div>
+        </div>
+
+        <button class="btn-play" id="spinBtn">
+            <div class="icon-play" id="btnIcon"></div>
+        </button>
     </div>
 
     <script>
@@ -127,35 +168,78 @@
             "Чарующая", "Шикарная", "Элегантная", "Яркая", "Совершенная", "Божественная"
         ];
 
-        const slotWindow = document.getElementById('slotWindow');
+        const track = document.getElementById('slotTrack');
+        const btn = document.getElementById('spinBtn');
         let history = [];
+        let isSpinning = false;
+
+        function createComplimentEl(text, isDancing = false) {
+            const div = document.createElement('div');
+            div.className = 'compliment';
+            if (isDancing) {
+                text.split('').forEach((char, i) => {
+                    const span = document.createElement('span');
+                    span.textContent = char;
+                    span.className = 'letter';
+                    span.style.animation = `letter-dance 0.3s infinite ${i * 0.05}s`;
+                    div.appendChild(span);
+                });
+            } else {
+                div.textContent = text;
+            }
+            return div;
+        }
 
         function getNext() {
-            let index;
-            do {
-                index = Math.floor(Math.random() * compliments.length);
-            } while (history.includes(index));
-            history.push(index);
+            let idx;
+            do { idx = Math.floor(Math.random() * compliments.length); } 
+            while (history.includes(idx));
+            history.push(idx);
             if (history.length > 10) history.shift();
-            return compliments[index];
+            return compliments[idx];
         }
 
-        function spawn() {
-            const oldElement = slotWindow.querySelector('.compliment');
-            if (oldElement) {
-                oldElement.classList.remove('slot-animate-in');
-                oldElement.classList.add('slot-animate-out');
-                setTimeout(() => oldElement.remove(), 500);
+        function init() {
+            track.appendChild(createComplimentEl(compliments[0]));
+        }
+
+        async function startSpin() {
+            if (isSpinning) return;
+            isSpinning = true;
+            btn.style.opacity = "0.5";
+            btn.style.pointerEvents = "none";
+
+            const spins = 15;
+            const duration = 150;
+
+            for (let i = 0; i < spins; i++) {
+                const word = compliments[Math.floor(Math.random() * compliments.length)];
+                const el = createComplimentEl(word);
+                el.classList.add('blur-fx');
+                track.appendChild(el);
+                
+                track.style.transition = `transform ${duration}ms linear`;
+                track.style.transform = `translateY(-${(track.children.length - 1) * 80}px)`;
+                
+                await new Promise(r => setTimeout(r, duration));
             }
 
-            const newElement = document.createElement('div');
-            newElement.className = 'compliment slot-animate-in';
-            newElement.textContent = getNext();
-            slotWindow.appendChild(newElement);
+            const finalWord = getNext();
+            const finalEl = createComplimentEl(finalWord, true);
+            track.appendChild(finalEl);
+            
+            track.style.transition = `transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275)`;
+            track.style.transform = `translateY(-${(track.children.length - 1) * 80}px)`;
+
+            setTimeout(() => {
+                isSpinning = false;
+                btn.style.opacity = "1";
+                btn.style.pointerEvents = "auto";
+            }, 800);
         }
 
-        spawn();
-        setInterval(spawn, 3000);
+        btn.addEventListener('click', startSpin);
+        init();
     </script>
 </body>
 </html>
